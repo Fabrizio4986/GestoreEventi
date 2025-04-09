@@ -31,8 +31,16 @@ public class Evento {
         return nome;
     }
 
+    public LocalDate getData() {
+        return data;
+    }
+
+    public TipoEvento getTipo() {
+        return tipo;
+    }
+
     private String generaCodice(LocalDate data){
-        int nnn = (int) Math.random() * (999 - 100 + 1) + 100;
+        int nnn = (int) (Math.random() * (999 - 100 + 1)) + 100;
         String dataCod = data.format(formatter2);
         String codice = EVT + "-" + dataCod + "-" + nnn;
         return codice;
@@ -50,7 +58,7 @@ public class Evento {
     }
 
     public void stampaInfo() {
-        System.out.print("Nome evento: " + nome + ", Data: " + data.format(formatter) + ", tipo: " + tipo + ", codice: " + codice + ".");
+        System.out.println("Nome evento: " + nome + ", Data: " + data.format(formatter) + ", tipo: " + tipo + ", codice: " + codice + ".");
     }
 
     public void formattaNome() {
