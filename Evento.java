@@ -1,6 +1,5 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Evento {
@@ -28,6 +27,10 @@ public class Evento {
         this.codice = generaCodice(date);
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     private String generaCodice(LocalDate data){
         int nnn = (int) Math.random() * (999 - 100 + 1) + 100;
         String dataCod = data.format(formatter2);
@@ -48,5 +51,38 @@ public class Evento {
 
     public void stampaInfo() {
         System.out.print("Nome evento: " + nome + ", Data: " + data.format(formatter) + ", tipo: " + tipo + ", codice: " + codice + ".");
+    }
+
+    public void formattaNome() {
+        StringBuilder nomeTitleCase = convertToTitleCase(nome);
+        if (nomeTitleCase.length() >= 50) {
+            nomeTitleCase.replace(49,nomeTitleCase.length() , "...");
+            this.nome = nomeTitleCase.toString();
+        } else {
+            this.nome = nomeTitleCase.toString();
+        }
+    }
+
+    public static StringBuilder convertToTitleCase(String text) {
+        if (text == null || text.isEmpty()) {
+            return new StringBuilder(text);
+        }
+
+        StringBuilder converted = new StringBuilder();
+
+        boolean convertNext = true;
+        for (char ch : text.toCharArray()) {
+            if (Character.isSpaceChar(ch)) {
+                convertNext = true;
+            } else if (convertNext) {
+                ch = Character.toTitleCase(ch);
+                convertNext = false;
+            } else {
+                ch = Character.toLowerCase(ch);
+            }
+            converted.append(ch);
+        }
+
+        return converted;
     }
 }
